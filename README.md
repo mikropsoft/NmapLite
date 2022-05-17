@@ -27,6 +27,8 @@ This tool makes it easy to run nmap commands.
     git clone https://github.com/mdksec/simplified-nmap.git
     
     cd simplified_nmap
+     
+    apt-get install pyfiglet (Linux) OR pkg install pyfiglet (Termux)
 
     python simplified_nmap.py
 
