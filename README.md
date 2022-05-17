@@ -28,7 +28,7 @@ This tool makes it easy to run nmap commands.
     
     cd simplified_nmap
      
-    apt-get install pyfiglet (Linux) OR pkg install pyfiglet (Termux)
+    pip install pyfiglet
 
     python simplified_nmap.py
 
