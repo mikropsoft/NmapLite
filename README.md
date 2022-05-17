@@ -1,6 +1,6 @@
-# Zenmapcli
+# Simplified nmap
 
-It is the command line version of the zenmap operations.
+This tool makes it easy to run nmap commands.
 
 # Available scans
 
@@ -24,9 +24,9 @@ It is the command line version of the zenmap operations.
 
 # Use it
 
-    git clone https://github.com/mdksec/zenmapcli.git
+    git clone https://github.com/mdksec/simplified-nmap.git
     
-    cd zenmapcli
+    cd simplified_nmap
 
-    python zenmapcli.py
+    python simplified_nmap.py
 
