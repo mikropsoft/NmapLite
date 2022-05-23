@@ -1,6 +1,6 @@
 # Simplified nmap
 
-This tool makes it easy to run nmap commands.
+This simple and my first tool allows you to run nmap commands more easily.
 
 # Available scans
 
@@ -31,4 +31,5 @@ This tool makes it easy to run nmap commands.
     pip install pyfiglet
 
     python simplified_nmap.py
+
 
