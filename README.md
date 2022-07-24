@@ -26,7 +26,7 @@ This simple and my first tool allows you to run nmap commands more easily.
 
     git clone https://github.com/mdksec/simplified-nmap.git
     
-    cd simplified_nmap
+    cd simplified-nmap
      
     pip install pyfiglet
 
