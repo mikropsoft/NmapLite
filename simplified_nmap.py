@@ -1,9 +1,5 @@
 from modules.nmap import nmap
 from modules.print_colored import PrintStyle
-from pyfiglet import Figlet
-my_text = Figlet().renderText("SİMPLE NMAP")
-print(PrintStyle.CGREEN + my_text + PrintStyle.CGREEN)
-print(PrintStyle.CBLUE + 15*"*"+""" BY MDKSEC """ + 15*"*"+PrintStyle.CYELLOW)
 
 while True:
     print(PrintStyle.CITALIC + """
