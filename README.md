@@ -28,4 +28,8 @@ This straightforward and inaugural tool I've developed facilitates the streamlin
     
     cd simplified-nmap
 
-    python simplified_nmap.py
+    sudo python simplified_nmap.py
+
+# Why root is required?
+
+    Because you cannot run some commands of nmap without root permission.
