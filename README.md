@@ -1,6 +1,6 @@
 # Simplified nmap
 
-This simple and my first tool allows you to run nmap commands more easily.
+This straightforward and inaugural tool I've developed facilitates the streamlined execution of nmap commands, enhancing overall user experience and efficiency.
 
 # Available scans
 
@@ -27,9 +27,5 @@ This simple and my first tool allows you to run nmap commands more easily.
     git clone https://github.com/mdksec/simplified-nmap.git
     
     cd simplified-nmap
-     
-    pip install pyfiglet
 
     python simplified_nmap.py
-
-
