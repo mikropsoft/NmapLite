@@ -20,7 +20,7 @@ def print_separator(length=60):
 def get_targets():
     while True:
         targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
-        if targets == "0" or targets:
+        if targets == "0" or not targets:
             return targets
         print("Invalid input. Please enter targets or press 0 to return.\n")
 
@@ -47,8 +47,8 @@ operations = {
     7: {"description": "Quick scan plus", "command": "-sV -T4 -O -F --version-light"},
     8: {"description": "Quick traceroute", "command": "-sn --traceroute"},
     9: {"description": "Regular scan", "command": ""},
-    10: {"description": "Slow comprehensive scan", "command": "nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)"
-"},
+    10: {"description": "Slow comprehensive scan", "command": """nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
+    },
 }
 
 def print_operations():
