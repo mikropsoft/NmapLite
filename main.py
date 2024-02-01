@@ -19,10 +19,10 @@ class Nmap:
 
 def get_targets():
     while True:
-        targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n")
+        targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
         if targets == "0":
             return targets
-        if targets.strip():
+        if targets:
             return targets
         print("Invalid input. Please enter targets or press 0 to return.\n")
 
@@ -83,7 +83,7 @@ def main():
                 helper = Nmap(targets)
                 start_scan(helper, operations[operation]["command"])
             except KeyboardInterrupt:
-                print("\nCtrl+C detected. closing nmap tool...\n")
+                print("\nCtrl+C detected. Closing nmap tool...\n")
                 break
             except Exception as error:
                 print(f"Error: {error}\n")
