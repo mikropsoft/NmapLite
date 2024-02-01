@@ -18,15 +18,11 @@ def print_separator(length=60):
     print("*" * length)
 
 def get_targets():
-    try:
-        while True:
-            targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
-            if targets == "0" or not targets:
-                return targets
-            print("Invalid input. Please enter targets or press 0 to return.\n")
-    except KeyboardInterrupt:
-        print("\nCtrl+C detected. Returning to the main menu...\n")
-        return "0"
+    while True:
+        targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
+        if targets == "0" or not targets:
+            return targets
+        print("Invalid input. Please enter targets or press 0 to return.\n")
 
 def start_scan(helper, options):
     print_separator(15)
