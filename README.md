@@ -24,8 +24,8 @@ It organizes the nmap commands by incorporating them into an uncomplicated menu 
 
 # Use it
 
-    git clone https://github.com/mdksec/simplified-nmap.git
+    git clone https://github.com/mdksec/NmapLite.git
     
-    cd simplified-nmap
+    cd NmapLite
 
     sudo python main.py
