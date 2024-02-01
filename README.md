@@ -24,12 +24,12 @@ This straightforward and inaugural tool I've developed facilitates the streamlin
 
 # Use it
 
-git clone https://github.com/mdksec/simplified-nmap.git
+    git clone https://github.com/mdksec/simplified-nmap.git
     
-cd simplified-nmap
+    cd simplified-nmap
 
-sudo python main.py
+    sudo python main.py
 
 # Why run the sudo command?
 
-Some commands require root, if you don't run them with sudo you will get an error.
+    Some commands require root, if you don't run them with sudo you will get an error.
