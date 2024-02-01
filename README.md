@@ -1,6 +1,6 @@
-# Simplified nmap
+# NmapLite
 
-This straightforward and inaugural tool I've developed facilitates the streamlined execution of nmap commands, enhancing overall user experience and efficiency.
+It organizes the nmap commands by incorporating them into an uncomplicated menu system, enhancing user accessibility and simplifying the navigation process.
 
 # Available scans
 
@@ -29,7 +29,3 @@ This straightforward and inaugural tool I've developed facilitates the streamlin
     cd simplified-nmap
 
     sudo python main.py
-
-# Why run the sudo command?
-
-Some commands require root, if you don't run them with sudo you will get an error.
