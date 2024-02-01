@@ -8,30 +8,31 @@ class Nmap:
         try:
             command = ["nmap", options, self.target]
             result = subprocess.run(command, capture_output=True, text=True, check=True)
-            print(result.stdout)
-            return result.returncode
+            return result.stdout, result.returncode
         except FileNotFoundError:
-            print("Error: nmap not found. Please install nmap and try again.\n")
-            return 1
+            return "Error: nmap not found. Please install nmap and try again.\n", 1
         except subprocess.CalledProcessError as e:
-            print(f"Error: {e.stderr}\n")
-            return e.returncode
+            return f"Error: {e.stderr}\n", e.returncode
+
+def print_separator(length=60):
+    print("*" * length)
 
 def get_targets():
     while True:
         targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
-        if targets == "0":
-            return targets
-        if targets:
+        if targets == "0" or targets:
             return targets
         print("Invalid input. Please enter targets or press 0 to return.\n")
 
 def start_scan(helper, options):
-    print("*" * 15 + " Scan starting... wait " + "*" * 15)
+    print_separator(15)
+    print("Scan starting... please wait.")
     print()
     try:
-        exit_code = helper.scan(options)
-        print("*" * 15 + f" Scan completed with exit code: {exit_code} " + "*" * 15)
+        result, exit_code = helper.scan(options)
+        print(result)
+        print_separator(15)
+        print(f"Scan completed with exit code: {exit_code}")
     except Exception as e:
         print(f"Error: {e}\n")
     print("\n")
@@ -55,39 +56,43 @@ def print_operations():
     print("0) -> QUIT")
 
 def main():
-    while True:
-        print_operations()
-
-        try:
-            operation = int(input("Choose operation: "))
-            if operation not in operations and operation != 0:
-                print("Invalid operation\n")
-                continue
-        except ValueError:
-            print("Invalid input. Please enter a number.\n")
-            continue
-
-        if operation == 0:
-            print("Exiting the tool. Goodbye!")
-            break
-
+    try:
         while True:
-            print("Press 0 to return to the main menu, press ctrl + c to close the tool")
-            targets = get_targets()
-
-            if targets == "0":
-                print("Returning to the main menu...\n")
-                break
+            print_operations()
 
             try:
-                helper = Nmap(targets)
-                start_scan(helper, operations[operation]["command"])
-            except KeyboardInterrupt:
-                print("\nCtrl+C detected. Returning to the main menu...\n")
+                operation = int(input("Choose operation: "))
+                if operation not in operations and operation != 0:
+                    print("Invalid operation\n")
+                    continue
+            except ValueError:
+                print("Invalid input. Please enter a number.\n")
+                continue
+
+            if operation == 0:
+                print("Exiting the tool. Goodbye!")
                 break
-            except Exception as error:
-                print(f"Error: {error}\n")
-                break
+
+            while True:
+                print_separator()
+                print("Press 0 to return to the main menu, press ctrl + c to close the tool")
+                targets = get_targets()
+
+                if targets == "0":
+                    print("Returning to the main menu...\n")
+                    break
+
+                try:
+                    helper = Nmap(targets)
+                    start_scan(helper, operations[operation]["command"])
+                except KeyboardInterrupt:
+                    print("\nCtrl+C detected. Returning to the main menu...\n")
+                    break
+                except Exception as error:
+                    print(f"Error: {error}\n")
+                    break
+    except KeyboardInterrupt:
+        print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
 
 if __name__ == "__main__":
     main()
