@@ -18,9 +18,11 @@ It organizes the nmap commands by incorporating them into an uncomplicated menu 
 
     7-) Quick scan plus
 
-    8-) Version and os scan
+    8-) Quick traceroute
 
     9-) Regular scan
+
+    10-) Slow comprehensive scan
 
 # Use it
 
