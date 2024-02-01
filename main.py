@@ -83,7 +83,7 @@ def main():
                 helper = Nmap(targets)
                 start_scan(helper, operations[operation]["command"])
             except KeyboardInterrupt:
-                print("\nCtrl+C detected. Returning to main menu...\n")
+                print("\nCtrl+C detected. Returning to the main menu...\n")
                 break
             except Exception as error:
                 print(f"Error: {error}\n")
