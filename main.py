@@ -22,7 +22,7 @@ def get_targets():
     try:
         while True:
             targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
-            if targets == "0" or not targets:
+            if targets == "0" or targets:
                 return targets
             print("Invalid input. Please enter targets or press 0 to return.\n")
     except KeyboardInterrupt:
