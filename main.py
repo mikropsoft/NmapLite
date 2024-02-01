@@ -6,7 +6,6 @@ class Nmap:
 
     def scan(self, options):
         try:
-            # Add a space between options and target
             command = ["nmap", options, self.target]
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             return result.stdout, result.returncode
