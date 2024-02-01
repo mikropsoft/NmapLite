@@ -4,32 +4,32 @@ This straightforward and inaugural tool I've developed facilitates the streamlin
 
 # Available scans
 
-    1-) Intense scan
+1-) Intense scan
     
-    2-) Intense scan plus UDP
+2-) Intense scan plus UDP
     
-    3-) Intense scan, all TCP ports
+3-) Intense scan, all TCP ports
     
-    4-) Intense scan, no ping
+4-) Intense scan, no ping
 
-    5-) Ping scan
+5-) Ping scan
 
-    6-) Quick scan
+6-) Quick scan
 
-    7-) Quick scan plus
+7-) Quick scan plus
 
-    8-) Version and os scan
+8-) Version and os scan
 
-    9-) Regular scan
+9-) Regular scan
 
 # Use it
 
-    git clone https://github.com/mdksec/simplified-nmap.git
+git clone https://github.com/mdksec/simplified-nmap.git
     
-    cd simplified-nmap
+cd simplified-nmap
 
-    sudo python main.py
+sudo python main.py
 
-# Why root is required?
+# Why run the sudo command?
 
-    Because you cannot run some commands of nmap without root permission.
+Some commands require root, if you don't run them with sudo you will get an error.
