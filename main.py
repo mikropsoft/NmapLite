@@ -17,7 +17,6 @@ class Nmap:
             print(f"Error: {e.stderr}\n")
             return e.returncode
 
-
 def get_targets():
     while True:
         targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n")
@@ -26,7 +25,6 @@ def get_targets():
         if targets.strip():
             return targets
         print("Invalid input. Please enter targets or press 0 to return.\n")
-
 
 def start_scan(helper, options):
     print("*" * 15 + " Scan starting... wait " + "*" * 15)
@@ -37,7 +35,6 @@ def start_scan(helper, options):
     except Exception as e:
         print(f"Error: {e}\n")
     print("\n")
-
 
 operations = {
     1: {"description": "Intense scan", "command": "-T4 -A -v"},
@@ -51,13 +48,11 @@ operations = {
     9: {"description": "Regular scan", "command": ""},
 }
 
-
 def print_operations():
     print("Operations:")
     for key, value in operations.items():
         print(f"{key}) -> {value['description']}")
     print("0) -> QUIT")
-
 
 def main():
     while True:
@@ -93,7 +88,6 @@ def main():
             except Exception as error:
                 print(f"Error: {error}\n")
                 break
-
 
 if __name__ == "__main__":
     main()
