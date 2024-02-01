@@ -1,6 +1,6 @@
 # Simplified nmap
 
-    This straightforward and inaugural tool I've developed facilitates the streamlined execution of nmap commands, enhancing overall user experience and efficiency.
+This straightforward and inaugural tool I've developed facilitates the streamlined execution of nmap commands, enhancing overall user experience and efficiency.
 
 # Available scans
 
@@ -32,4 +32,4 @@
 
 # Why run the sudo command?
 
-    Some commands require root, if you don't run them with sudo you will get an error.
+Some commands require root, if you don't run them with sudo you will get an error.
