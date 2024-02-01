@@ -1,6 +1,6 @@
 # Simplified nmap
 
-This straightforward and inaugural tool I've developed facilitates the streamlined execution of nmap commands, enhancing overall user experience and efficiency.
+    This straightforward and inaugural tool I've developed facilitates the streamlined execution of nmap commands, enhancing overall user experience and efficiency.
 
 # Available scans
 
