@@ -47,7 +47,7 @@ operations = {
     7: {"description": "Quick scan plus", "command": "-sV -T4 -O -F --version-light"},
     8: {"description": "Quick traceroute", "command": "-sn --traceroute"},
     9: {"description": "Regular scan", "command": ""},
-    10: {"description": "Slow comprehensive scan", "command": """nmap -sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
+    10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
     },
 }
 
