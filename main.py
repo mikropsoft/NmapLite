@@ -1,4 +1,5 @@
 import subprocess
+import time  
 
 class Nmap:
     def __init__(self, target):
@@ -10,8 +11,10 @@ class Nmap:
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             return result.stdout, result.returncode
         except FileNotFoundError:
+            time.sleep(1)  
             return "Error: nmap not found. Please install nmap and try again.\n", 1
         except subprocess.CalledProcessError as e:
+            time.sleep(1)  
             return f"Error: {e.stderr}\n", e.returncode
 
 def print_separator(length=60):
@@ -73,6 +76,7 @@ def main():
 
             if operation == 0:
                 print("Exiting the tool. Goodbye!")
+                time.sleep(1)  
                 break
 
             while True:
@@ -82,6 +86,7 @@ def main():
 
                 if targets == "0":
                     print("Returning to the main menu...\n")
+                    time.sleep(1) 
                     break
 
                 try:
@@ -89,12 +94,15 @@ def main():
                     start_scan(helper, operations[operation]["command"])
                 except KeyboardInterrupt:
                     print("\nCtrl+C detected. Returning to the main menu...\n")
+                    time.sleep(1)  
                     break
                 except Exception as error:
                     print(f"Error: {error}\n")
+                    time.sleep(1)  
                     break
     except KeyboardInterrupt:
         print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
+        time.sleep(1)  
 
 if __name__ == "__main__":
     main()
