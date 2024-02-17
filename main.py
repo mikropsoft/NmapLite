@@ -1,5 +1,5 @@
 import subprocess
-import time  
+import time
 
 class Nmap:
     def __init__(self, target):
@@ -11,10 +11,8 @@ class Nmap:
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             return result.stdout, result.returncode
         except FileNotFoundError:
-            time.sleep(1)  
             return "Error: nmap not found. Please install nmap and try again.\n", 1
         except subprocess.CalledProcessError as e:
-            time.sleep(1)  
             return f"Error: {e.stderr}\n", e.returncode
 
 def print_separator(length=60):
@@ -29,30 +27,14 @@ def get_targets():
 
 def start_scan(helper, options):
     print_separator(15)
-    print("Scan starting... please wait.")
-    print()
+    print("Scan starting... please wait.\n")
     try:
         result, exit_code = helper.scan(options)
         print(result)
         print_separator(15)
-        print(f"Scan completed with exit code: {exit_code}")
+        print(f"Scan completed with exit code: {exit_code}\n")
     except Exception as e:
         print(f"Error: {e}\n")
-    print("\n")
-
-operations = {
-    1: {"description": "Intense scan", "command": "-T4 -A -v"},
-    2: {"description": "Intense scan plus UDP", "command": "-sS -sU -T4 -A -v"},
-    3: {"description": "Intense scan, all TCP ports", "command": "-p 1-65535 -T4 -A -v"},
-    4: {"description": "Intense scan, no ping", "command": "-T4 -A -v -Pn"},
-    5: {"description": "Ping scan", "command": "-sn"},
-    6: {"description": "Quick scan", "command": "-T4 -F"},
-    7: {"description": "Quick scan plus", "command": "-sV -T4 -O -F --version-light"},
-    8: {"description": "Quick traceroute", "command": "-sn --traceroute"},
-    9: {"description": "Regular scan", "command": ""},
-    10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
-    },
-}
 
 def print_operations():
     print("Operations:")
@@ -76,7 +58,7 @@ def main():
 
             if operation == 0:
                 print("Exiting the tool. Goodbye!")
-                time.sleep(1)  
+                time.sleep(1)
                 break
 
             while True:
@@ -86,7 +68,7 @@ def main():
 
                 if targets == "0":
                     print("Returning to the main menu...\n")
-                    time.sleep(1) 
+                    time.sleep(1)
                     break
 
                 try:
@@ -94,15 +76,28 @@ def main():
                     start_scan(helper, operations[operation]["command"])
                 except KeyboardInterrupt:
                     print("\nCtrl+C detected. Returning to the main menu...\n")
-                    time.sleep(1)  
+                    time.sleep(1)
                     break
                 except Exception as error:
                     print(f"Error: {error}\n")
-                    time.sleep(1)  
+                    time.sleep(1)
                     break
     except KeyboardInterrupt:
         print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
-        time.sleep(1)  
+        time.sleep(1)
 
 if __name__ == "__main__":
+    operations = {
+        1: {"description": "Intense scan", "command": "-T4 -A -v"},
+        2: {"description": "Intense scan plus UDP", "command": "-sS -sU -T4 -A -v"},
+        3: {"description": "Intense scan, all TCP ports", "command": "-p 1-65535 -T4 -A -v"},
+        4: {"description": "Intense scan, no ping", "command": "-T4 -A -v -Pn"},
+        5: {"description": "Ping scan", "command": "-sn"},
+        6: {"description": "Quick scan", "command": "-T4 -F"},
+        7: {"description": "Quick scan plus", "command": "-sV -T4 -O -F --version-light"},
+        8: {"description": "Quick traceroute", "command": "-sn --traceroute"},
+        9: {"description": "Regular scan", "command": ""},
+        10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
+        },
+    }
     main()
