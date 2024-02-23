@@ -26,7 +26,7 @@ It organizes the nmap commands by incorporating them into an uncomplicated menu 
 
 # Use it
 
-    git clone https://github.com/winzortdusmani/NmapLite.git
+    git clone https://github.com/mikropsoft/NmapLite.git
     
     cd NmapLite
 
