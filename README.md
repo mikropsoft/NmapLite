@@ -2,7 +2,7 @@
 
 It organizes the nmap commands by incorporating them into an uncomplicated menu system, enhancing user accessibility and simplifying the navigation process.
 
-# Available scans
+## Available scans
 
     1-) Intense scan
     
@@ -24,7 +24,7 @@ It organizes the nmap commands by incorporating them into an uncomplicated menu 
 
     10-) Slow comprehensive scan
 
-# Use it
+## Use it
 
     git clone https://github.com/mikropsoft/NmapLite.git
     
