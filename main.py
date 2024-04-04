@@ -1,5 +1,4 @@
 import subprocess
-import time
 
 class Nmap:
     def __init__(self, target):
@@ -15,78 +14,32 @@ class Nmap:
         except subprocess.CalledProcessError as e:
             return f"Error: {e.stderr}\n", e.returncode
 
-def print_separator(length=60):
-    print("*" * length)
-
 def get_targets():
     while True:
-        targets = input("Input targets (Example: IP or website - 192.168.1.1 or example.com):\n").strip()
-        if targets == "0" or targets:
+        print("\n> Enter targets (Example: IP or website - 192.168.1.1 or example.com), or enter 0 to return:")
+        targets = input("  > ").strip()
+        if targets == "0":
+            return None
+        elif targets:
             return targets
-        print("Invalid input. Please enter targets or press 0 to return.\n")
+        print("Invalid input. Please enter targets or press 0 to return.")
+
+def get_additional_options():
+    print("\n> Enter additional options for the scan (leave empty for default):")
+    return input("  > ").strip()
 
 def start_scan(helper, options):
-    print_separator(15)
+    print("*" * 60)
     print("Scan starting... please wait.\n")
     try:
         result, exit_code = helper.scan(options)
         print(result)
-        print_separator(15)
+        print("*" * 60)
         print(f"Scan completed with exit code: {exit_code}\n")
     except Exception as e:
         print(f"Error: {e}\n")
 
-def print_operations():
-    print("Operations:")
-    for key, value in operations.items():
-        print(f"{key}) -> {value['description']}")
-    print("0) -> QUIT")
-
 def main():
-    try:
-        while True:
-            print_operations()
-
-            try:
-                operation = int(input("Choose operation: "))
-                if operation not in operations and operation != 0:
-                    print("Invalid operation\n")
-                    continue
-            except ValueError:
-                print("Invalid input. Please enter a number.\n")
-                continue
-
-            if operation == 0:
-                print("Exiting the tool. Goodbye!")
-                time.sleep(1)
-                break
-
-            while True:
-                print_separator()
-                print("Press 0 to return to the main menu, press ctrl + c to close the tool")
-                targets = get_targets()
-
-                if targets == "0":
-                    print("Returning to the main menu...\n")
-                    time.sleep(1)
-                    break
-
-                try:
-                    helper = Nmap(targets)
-                    start_scan(helper, operations[operation]["command"])
-                except KeyboardInterrupt:
-                    print("\nCtrl+C detected. Returning to the main menu...\n")
-                    time.sleep(1)
-                    break
-                except Exception as error:
-                    print(f"Error: {error}\n")
-                    time.sleep(1)
-                    break
-    except KeyboardInterrupt:
-        print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
-        time.sleep(1)
-
-if __name__ == "__main__":
     operations = {
         1: {"description": "Intense scan", "command": "-T4 -A -v"},
         2: {"description": "Intense scan plus UDP", "command": "-sS -sU -T4 -A -v"},
@@ -100,4 +53,41 @@ if __name__ == "__main__":
         10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
         },
     }
+
+    try:
+        while True:
+            print("\nOperations:")
+            for key, value in operations.items():
+                print(f"  {key}) -> {value['description']}")
+            print("  0) -> QUIT")
+
+            try:
+                operation = int(input("\n> Choose operation: "))
+                if operation == 0:
+                    print("\nExiting the tool. Goodbye!")
+                    break
+                elif operation not in operations:
+                    print("Invalid operation\n")
+                    continue
+            except ValueError:
+                print("Invalid input. Please enter a number.\n")
+                continue
+
+            print("\n" + "*" * 60)
+            print("Press ctrl + c to close the tool.")
+            targets = get_targets()
+            if targets is None:
+                continue
+            additional_options = get_additional_options()
+
+            try:
+                helper = Nmap(targets)
+                options = operations[operation]["command"] + " " + additional_options
+                start_scan(helper, options)
+            except Exception as error:
+                print(f"Error: {error}\n")
+    except KeyboardInterrupt:
+        print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
+
+if __name__ == "__main__":
     main()
