@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 class Nmap:
     def __init__(self, target):
@@ -6,7 +7,7 @@ class Nmap:
 
     def scan(self, options):
         try:
-            command = ["nmap", options, self.target]
+            command = ["nmap"] + options.split() + [self.target]
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             return result.stdout, result.returncode
         except FileNotFoundError:
@@ -14,19 +15,23 @@ class Nmap:
         except subprocess.CalledProcessError as e:
             return f"Error: {e.stderr}\n", e.returncode
 
-def get_targets():
-    while True:
-        print("\n> Enter targets (Example: IP or website - 192.168.1.1 or example.com), or enter 0 to return:")
-        targets = input("  > ").strip()
-        if targets == "0":
-            return None
-        elif targets:
-            return targets
-        print("Invalid input. Please enter targets or press 0 to return.")
+def clear_console():
+    # Clear the console based on the operating system
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-def get_additional_options():
-    print("\n> Enter additional options for the scan (leave empty for default):")
-    return input("  > ").strip()
+def get_input(prompt, exit_option="0"):
+    while True:
+        try:
+            user_input = input(prompt).strip()
+            clear_console()
+            if user_input == exit_option:
+                return None
+            elif user_input:
+                return user_input
+            print(f"Invalid input. Please enter a value or press {exit_option} to return.")
+        except KeyboardInterrupt:
+            print("\nCtrl+C detected. Returning to the main menu...\n")
+            return None
 
 def start_scan(helper, options):
     print("*" * 60)
@@ -36,8 +41,14 @@ def start_scan(helper, options):
         print(result)
         print("*" * 60)
         print(f"Scan completed with exit code: {exit_code}\n")
-    except Exception as e:
-        print(f"Error: {e}\n")
+    except KeyboardInterrupt:
+        print("\nScan interrupted. Returning to the main menu...\n")
+
+def display_operations(operations):
+    print("\nOperations:")
+    for key, value in operations.items():
+        print(f"  {key}) -> {value['description']}")
+    print("  0) -> QUIT")
 
 def main():
     operations = {
@@ -50,19 +61,20 @@ def main():
         7: {"description": "Quick scan plus", "command": "-sV -T4 -O -F --version-light"},
         8: {"description": "Quick traceroute", "command": "-sn --traceroute"},
         9: {"description": "Regular scan", "command": ""},
-        10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script "default or (discovery and safe)" """
-        },
+        10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script discovery,safe"""}
     }
 
-    try:
-        while True:
-            print("\nOperations:")
-            for key, value in operations.items():
-                print(f"  {key}) -> {value['description']}")
-            print("  0) -> QUIT")
+    while True:
+        try:
+            display_operations(operations)
+
+            operation_input = get_input("\n> Choose operation: ")
+            if operation_input is None:
+                print("\nExiting the tool. Goodbye!")
+                break
 
             try:
-                operation = int(input("\n> Choose operation: "))
+                operation = int(operation_input)
                 if operation == 0:
                     print("\nExiting the tool. Goodbye!")
                     break
@@ -75,19 +87,18 @@ def main():
 
             print("\n" + "*" * 60)
             print("Press ctrl + c to close the tool.")
-            targets = get_targets()
+            targets = get_input("\n> Enter targets (Example: IP or website - 192.168.1.1 or example.com), or enter 0 to return: ")
             if targets is None:
                 continue
-            additional_options = get_additional_options()
+            additional_options = get_input("\n> Enter additional options for the scan (leave empty for default): ", exit_option="")
 
-            try:
-                helper = Nmap(targets)
-                options = operations[operation]["command"] + " " + additional_options
-                start_scan(helper, options)
-            except Exception as error:
-                print(f"Error: {error}\n")
-    except KeyboardInterrupt:
-        print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
+            helper = Nmap(targets)
+            options = f"{operations[operation]['command']} {additional_options}"
+            start_scan(helper, options)
+
+        except KeyboardInterrupt:
+            print("\nCtrl+C detected. Exiting the tool. Goodbye!\n")
+            break
 
 if __name__ == "__main__":
     main()
