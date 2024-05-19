@@ -16,8 +16,7 @@ class Nmap:
             return f"Error: {e.stderr}\n", e.returncode
 
 def clear_console():
-    # Clear the console based on the operating system
-    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\033c", end="")
 
 def get_input(prompt, exit_option="0"):
     while True:
