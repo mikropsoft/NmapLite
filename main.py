@@ -1,5 +1,4 @@
 import subprocess
-import os
 
 class Nmap:
     def __init__(self, target):
@@ -20,17 +19,13 @@ def clear_console():
 
 def get_input(prompt, exit_option="0"):
     while True:
-        try:
-            user_input = input(prompt).strip()
-            clear_console()
-            if user_input == exit_option:
-                return None
-            elif user_input:
-                return user_input
-            print(f"Invalid input. Please enter a value or press {exit_option} to return.")
-        except KeyboardInterrupt:
-            print("\nCtrl+C detected. Returning to the main menu...\n")
+        user_input = input(prompt).strip()
+        clear_console()
+        if user_input == exit_option:
             return None
+        if user_input:
+            return user_input
+        print(f"Invalid input. Please enter a value or press {exit_option} to return.")
 
 def start_scan(helper, options):
     print("*" * 60)
@@ -50,23 +45,34 @@ def display_operations(operations):
     print("  0) -> QUIT")
 
 def main():
+    ascii_art = """
+
+ _  _ __  __   _   ___ _    ___ _____ ___ 
+| \| |  \/  | /_\ | _ \ |  |_ _|_   _| __|
+| .` | |\/| |/ _ \|  _/ |__ | |  | | | _| 
+|_|\_|_|  |_/_/ \_\_| |____|___| |_| |___|
+                                                                   
+by @mikropsoft
+
+"""
+    print(ascii_art)
+
     operations = {
-        1: {"description": "Intense scan", "command": "-T4 -A -v"},
-        2: {"description": "Intense scan plus UDP", "command": "-sS -sU -T4 -A -v"},
-        3: {"description": "Intense scan, all TCP ports", "command": "-p 1-65535 -T4 -A -v"},
-        4: {"description": "Intense scan, no ping", "command": "-T4 -A -v -Pn"},
-        5: {"description": "Ping scan", "command": "-sn"},
-        6: {"description": "Quick scan", "command": "-T4 -F"},
-        7: {"description": "Quick scan plus", "command": "-sV -T4 -O -F --version-light"},
-        8: {"description": "Quick traceroute", "command": "-sn --traceroute"},
-        9: {"description": "Regular scan", "command": ""},
-        10: {"description": "Slow comprehensive scan", "command": """-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script discovery,safe"""}
+        1: {"description": "Intense Scan", "command": "-T4 -A -v"},
+        2: {"description": "Intense Scan Plus UDP", "command": "-sS -sU -T4 -A -v"},
+        3: {"description": "Intense Scan, All TCP Ports", "command": "-p 1-65535 -T4 -A -v"},
+        4: {"description": "Intense Scan, No Ping", "command": "-T4 -A -v -Pn"},
+        5: {"description": "Ping Scan", "command": "-sn"},
+        6: {"description": "Quick Scan", "command": "-T4 -F"},
+        7: {"description": "Quick Scan Plus", "command": "-sV -T4 -O -F --version-light"},
+        8: {"description": "Quick Traceroute", "command": "-sn --traceroute"},
+        9: {"description": "Regular Scan", "command": ""},
+        10: {"description": "Slow comprehensive scan", "command": "-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script discovery,safe"}
     }
 
     while True:
         try:
             display_operations(operations)
-
             operation_input = get_input("\n> Choose operation: ")
             if operation_input is None:
                 print("\nExiting the tool. Goodbye!")
@@ -77,7 +83,7 @@ def main():
                 if operation == 0:
                     print("\nExiting the tool. Goodbye!")
                     break
-                elif operation not in operations:
+                if operation not in operations:
                     print("Invalid operation\n")
                     continue
             except ValueError:
@@ -89,10 +95,13 @@ def main():
             targets = get_input("\n> Enter targets (Example: IP or website - 192.168.1.1 or example.com), or enter 0 to return: ")
             if targets is None:
                 continue
+
             additional_options = get_input("\n> Enter additional options for the scan (leave empty for default): ", exit_option="")
+            if additional_options is None:
+                additional_options = ""
 
             helper = Nmap(targets)
-            options = f"{operations[operation]['command']} {additional_options}"
+            options = f"{operations[operation]['command']} {additional_options}".strip()
             start_scan(helper, options)
 
         except KeyboardInterrupt:
