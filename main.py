@@ -39,35 +39,47 @@ def start_scan(helper, options):
         print("\nScan interrupted. Returning to the main menu...\n")
 
 def display_operations(operations):
-    print("\nOperations:")
-    for key, value in operations.items():
-        print(f"  {key}) -> {value['description']}")
-    print("  0) -> QUIT")
+    print("Operations:\n")
+    keys = list(operations.keys())
+    half = len(keys) // 2
+    for i in range(half):
+        key1 = keys[i]
+        key2 = keys[i + half]
+        print(f"  {key1:2}) -> {operations[key1]['description']:35}  {key2:2}) -> {operations[key2]['description']}")
+    print("\n  0) -> QUIT")
 
 def main():
     ascii_art = """
-
  _  _ __  __   _   ___ _    ___ _____ ___ 
 | \| |  \/  | /_\ | _ \ |  |_ _|_   _| __|
 | .` | |\/| |/ _ \|  _/ |__ | |  | | | _| 
 |_|\_|_|  |_/_/ \_\_| |____|___| |_| |___|
                                                                    
 by @mikropsoft
-
 """
     print(ascii_art)
 
     operations = {
-        1: {"description": "Intense Scan", "command": "-T4 -A -v"},
-        2: {"description": "Intense Scan Plus UDP", "command": "-sS -sU -T4 -A -v"},
-        3: {"description": "Intense Scan, All TCP Ports", "command": "-p 1-65535 -T4 -A -v"},
-        4: {"description": "Intense Scan, No Ping", "command": "-T4 -A -v -Pn"},
-        5: {"description": "Ping Scan", "command": "-sn"},
-        6: {"description": "Quick Scan", "command": "-T4 -F"},
-        7: {"description": "Quick Scan Plus", "command": "-sV -T4 -O -F --version-light"},
-        8: {"description": "Quick Traceroute", "command": "-sn --traceroute"},
-        9: {"description": "Regular Scan", "command": ""},
-        10: {"description": "Slow Comprehensive Scan", "command": "-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script discovery,safe"}
+        1:  {"description": "Intense Scan", "command": "-T4 -A -v"},
+        2:  {"description": "Intense Scan Plus UDP", "command": "-sS -sU -T4 -A -v"},
+        3:  {"description": "Intense Scan, All TCP Ports", "command": "-p 1-65535 -T4 -A -v"},
+        4:  {"description": "Intense Scan, No Ping", "command": "-T4 -A -v -Pn"},
+        5:  {"description": "Ping Scan", "command": "-sn"},
+        6:  {"description": "Quick Scan", "command": "-T4 -F"},
+        7:  {"description": "Quick Scan Plus", "command": "-sV -T4 -O -F --version-light"},
+        8:  {"description": "Quick Traceroute", "command": "-sn --traceroute"},
+        9:  {"description": "Regular Scan", "command": ""},
+        10: {"description": "Slow Comprehensive Scan", "command": "-sS -sU -T4 -A -v -PE -PP -PS80,443 -PA3389 -PU40125 -PY -g 53 --script discovery,safe"},
+        11: {"description": "Scan Specific Ports", "command": "-p "},
+        12: {"description": "Service Version Detection", "command": "-sV"},
+        13: {"description": "OS Detection", "command": "-O"},
+        14: {"description": "Aggressive Scan", "command": "-A"},
+        15: {"description": "Detect Firewall", "command": "--script firewall-bypass"},
+        16: {"description": "Scan for Vulnerabilities", "command": "--script vuln"},
+        17: {"description": "Scan for Malware", "command": "--script malware"},
+        18: {"description": "Scan with NSE Scripts", "command": "--script "},
+        19: {"description": "Detect Heartbleed Vulnerability", "command": "--script ssl-heartbleed"},
+        20: {"description": "Traceroute and Geolocation", "command": "--traceroute --script traceroute-geolocation"}
     }
 
     while True:
