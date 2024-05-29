@@ -26,6 +26,26 @@ NmapLite is designed to streamline your experience with Nmap by providing a user
 
 10. **Slow Comprehensive Scan**: Delve deep into network analysis with a meticulous scan that examines various aspects thoroughly.
 
+11. **Scan Specific Ports**: Target specific ports for a focused scan.
+
+12. **Service Version Detection**: Identify versions of the services running on open ports.
+
+13. **OS Detection**: Determine the operating system of the target.
+
+14. **Aggressive Scan**: Conduct a detailed scan that combines various advanced Nmap options.
+
+15. **Detect Firewall**: Identify potential firewall configurations using specialized scripts.
+
+16. **Scan for Vulnerabilities**: Check for known vulnerabilities using Nmap scripts.
+
+17. **Scan for Malware**: Detect possible malware on the network with dedicated scripts.
+
+18. **Scan with NSE Scripts**: Utilize Nmap Scripting Engine (NSE) scripts for custom scanning.
+
+19. **Detect Heartbleed Vulnerability**: Specifically check for the Heartbleed vulnerability.
+
+20. **Traceroute and Geolocation**: Perform traceroute and determine geolocation of IP addresses.
+
 ---
 
 ## Getting Started
@@ -49,7 +69,7 @@ To begin utilizing NmapLite, follow these simple steps:
     ```bash
     sudo python main.py
     ```
-    
+   
 ---
 
 With NmapLite, exploring your network and conducting scans is now more intuitive and efficient than ever before. Experience the power of Nmap with enhanced accessibility and simplicity.
