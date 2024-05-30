@@ -1,4 +1,5 @@
 import subprocess
+import time
 
 class Nmap:
     def __init__(self, target):
@@ -30,6 +31,7 @@ def get_input(prompt, exit_option="0"):
 def start_scan(helper, options):
     print("*" * 60)
     print("Scan starting... please wait.\n")
+    time.sleep(1)
     try:
         result, exit_code = helper.scan(options)
         print(result)
@@ -41,11 +43,13 @@ def start_scan(helper, options):
 def display_operations(operations):
     print("Operations:\n")
     keys = list(operations.keys())
-    half = len(keys) // 2
+    half = (len(keys) + 1) // 2
     for i in range(half):
         key1 = keys[i]
-        key2 = keys[i + half]
-        print(f"  {key1:2}) -> {operations[key1]['description']:35}  {key2:2}) -> {operations[key2]['description']}")
+        key2 = keys[i + half] if i + half < len(keys) else ""
+        desc1 = operations[key1]["description"]
+        desc2 = operations[key2]["description"] if key2 else ""
+        print(f"  {key1:2}) -> {desc1:35}  {key2:2}) -> {desc2}")
     print("\n  0) -> QUIT")
 
 def main():
@@ -58,6 +62,7 @@ def main():
 by @mikropsoft
 """
     print(ascii_art)
+    time.sleep(1)
 
     operations = {
         1:  {"description": "Intense Scan", "command": "-T4 -A -v"},
@@ -103,6 +108,7 @@ by @mikropsoft
                 continue
 
             print("\n" + "*" * 60)
+            print(ascii_art)
             print("Press ctrl + c to close the tool.")
             targets = get_input("\n> Enter targets (Example: IP or website - 192.168.1.1 or example.com), or enter 0 to return: ")
             if targets is None:
