@@ -1,19 +1,17 @@
 import subprocess
 import time
+import os
 
 class Nmap:
     def __init__(self, target):
         self.target = target
 
-    def scan(self, options, output_file):
+    def scan(self, options):
         try:
             command = ["nmap"] + options.split() + [self.target]
-            with open(output_file, "w") as f:
-                result = subprocess.run(command, stdout=f, stderr=subprocess.PIPE, text=True)
+            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             if result.returncode == 0:
-                with open(output_file, "r") as f:
-                    output = f.read()
-                return output, result.returncode
+                return result.stdout, result.returncode
             else:
                 return f"Error: {result.stderr}\n", result.returncode
         except FileNotFoundError:
@@ -33,16 +31,28 @@ def get_input(prompt, exit_option="0"):
         print(f"Invalid input. Please enter a value or press {exit_option} to return.")
 
 def start_scan(helper, options):
-    output_file = f"nmap_scan_{int(time.time())}.log"
     print("*" * 60)
     print("Scan starting... please wait.\n")
     time.sleep(1)
     try:
-        result, exit_code = helper.scan(options, output_file)
+        result, exit_code = helper.scan(options)
         print(result)
         print("*" * 60)
         print(f"Scan completed with exit code: {exit_code}\n")
-        print(f"Output saved to {output_file}\n")
+
+        save_log = get_input("Would you like to save the log output? (yes/no): ").lower()
+        if save_log == "yes":
+            output_file = f"nmap_scan_{int(time.time())}.log"
+            new_filename = get_input("Would you like to give a custom name to the log file? (leave empty for default): ", exit_option="")
+            if new_filename:
+                new_filename = new_filename if new_filename.endswith(".log") else new_filename + ".log"
+                output_file = new_filename
+            with open(output_file, "w") as f:
+                f.write(result)
+            print(f"Output saved to {output_file}\n")
+        else:
+            print("Log output not saved.\n")
+
     except KeyboardInterrupt:
         print("\nScan interrupted. Returning to the main menu...\n")
 
