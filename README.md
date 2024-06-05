@@ -1,4 +1,4 @@
-# NmapLite: Your Lightweight Nmap Command Organizer
+# NmapLite - Your Lightweight Nmap Command Organizer
 
 NmapLite is designed to streamline your experience with Nmap by providing a user-friendly menu system. It simplifies the navigation process and enhances accessibility to Nmap commands.
 
