@@ -72,4 +72,16 @@ To begin utilizing NmapLite, follow these simple steps:
    
 ---
 
-With NmapLite, exploring your network and conducting scans is now more intuitive and efficient than ever before. Experience the power of Nmap with enhanced accessibility and simplicity.
+## Contributing
+
+Contributions are welcome! Please feel free to fork the repository and submit pull requests to contribute new features, improvements, or bug fixes.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<img src="https://raw.githubusercontent.com/matfantinel/matfantinel/master/waves.svg" width="100%" height="100">
