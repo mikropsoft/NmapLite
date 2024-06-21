@@ -67,7 +67,7 @@ To begin utilizing NmapLite, follow these simple steps:
 3. **Execute the Script**: Run the main Python script with elevated privileges.
 
     ```bash
-    sudo python main.py
+    python main.py
     ```
    
 ---
