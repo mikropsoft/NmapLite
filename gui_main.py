@@ -28,8 +28,6 @@ class NmapGUI:
         self.root.title("Nmap GUI")
         self.root.geometry("700x500")
 
-        self.font = ("Inter", 10)
-
         self.operations = {
             1: {"description": "Intense Scan", "command": "-T4 -A -v"},
             2: {"description": "Intense Scan Plus UDP", "command": "-sS -sU -T4 -A -v"},
@@ -58,38 +56,36 @@ class NmapGUI:
     def create_widgets(self):
         padding = {'padx': 5, 'pady': 5}
 
-        self.target_label = tk.Label(self.root, text="Target:", font=self.font)
+        self.target_label = tk.Label(self.root, text="Target:")
         self.target_label.grid(row=0, column=0, **padding, sticky="e")
 
-        self.target_entry = tk.Entry(self.root, font=self.font)
+        self.target_entry = tk.Entry(self.root)
         self.target_entry.grid(row=0, column=1, columnspan=3, **padding, sticky="ew")
 
-        self.options_label = tk.Label(self.root, text="Options:", font=self.font)
+        self.options_label = tk.Label(self.root, text="Options:")
         self.options_label.grid(row=1, column=0, **padding, sticky="e")
 
-        self.options_entry = tk.Entry(self.root, font=self.font)
+        self.options_entry = tk.Entry(self.root)
         self.options_entry.grid(row=1, column=1, columnspan=3, **padding, sticky="ew")
 
-        self.operation_label = tk.Label(self.root, text="Operation:", font=self.font)
+        self.operation_label = tk.Label(self.root, text="Operation:")
         self.operation_label.grid(row=2, column=0, **padding, sticky="e")
 
         self.operation_var = tk.StringVar(self.root)
         self.operation_var.set(list(self.operations.values())[0]["description"])
 
         self.operation_menu = tk.OptionMenu(self.root, self.operation_var, *[op["description"] for op in self.operations.values()])
-        self.operation_menu.config(font=self.font)
         self.operation_menu.grid(row=2, column=1, **padding, sticky="ew")
 
-        self.scan_button = tk.Button(self.root, text="Start Scan", command=self.start_scan, bg="lightgreen", font=self.font)
+        self.scan_button = tk.Button(self.root, text="Start Scan", command=self.start_scan, bg="lightgreen")
         self.scan_button.grid(row=2, column=2, **padding, sticky="ew")
 
-        self.save_button = tk.Button(self.root, text="Save Output", command=self.save_output, bg="lightblue", font=self.font)
+        self.save_button = tk.Button(self.root, text="Save Output", command=self.save_output, bg="lightblue")
         self.save_button.grid(row=2, column=3, **padding, sticky="ew")
 
-        self.output_text = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, font=self.font)
+        self.output_text = scrolledtext.ScrolledText(self.root, wrap=tk.WORD)
         self.output_text.grid(row=3, column=0, columnspan=4, **padding, sticky="nsew")
 
-        # Configure grid columns and rows for resizing
         self.root.grid_columnconfigure(0, weight=0)
         for i in range(1, 4):
             self.root.grid_columnconfigure(i, weight=1)
@@ -104,12 +100,7 @@ class NmapGUI:
         additional_options = self.options_entry.get()
         selected_operation = self.operation_var.get()
 
-        operation_command = ""
-        for op in self.operations.values():
-            if op["description"] == selected_operation:
-                operation_command = op["command"]
-                break
-
+        operation_command = next(op["command"] for op in self.operations.values() if op["description"] == selected_operation)
         options = f"{operation_command} {additional_options}".strip()
         output_file = f"nmap_scan_{int(time.time())}.log"
 
